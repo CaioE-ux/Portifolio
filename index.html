@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Caio | Portfólio</title>
+</head>
+<body>
+  <nav class="navegacao">
+    <ul class="menu">
+      <li><a href="#inicio" class="menu-link">Início</a></li>
+      <li><a href="#sobre" class="menu-link">Sobre</a></li>
+      <li><a href="#projetos" class="menu-link">Projetos</a></li>
+      <li><a href="#contato" class="menu-link">Contato</a></li>
+      <li><a href="java.html" class="menu-link" target="_blank">Java</a></li>
+    </ul>
+  </nav>
+
+  <header id="inicio" class="cabecalho">
+    <img src="IMAGENS/caracaio.jpg" alt="Foto de Caio" class="foto-perfil" />
+    <h1>Caio Enrique</h1>
+    <p class="cabecalho_sub-titulo">Analista de Automação e Desenvolvimento (Python)</p>
+  </header>
+
+  <section id="sobre" class="sobre">
+    <h2 class="sobre-titulo">Sobre Mim</h2>
+    <div class="sobre-caixa">
+      <p class="sobre-paragrafo">
+        Profissional de tecnologia com experiência em automação de processos e integração de sistemas corporativos. Foco em analisar fluxos operacionais, identificar pontos de otimização e implementar rotinas automatizadas utilizando Python e Selenium, especialmente em ambientes ERP como TOTVS. Busco sempre entregar soluções robustas, testáveis e fáceis de manter.
+      </p>
+    </div>
+  </section>
+
+  <section id="projetos" class="projetos">
+    <h2 class="projetos-titulo">Meus Projetos</h2>
+
+    <div class="projetos-caixa">
+
+      <article class="projetos-card" tabindex="0" role="button" aria-pressed="false" data-titulo="IA de Atendimento ao Cliente" data-desc="Sistema automatizado para atendimentos, integrando n8n, APIs e roteamentos por intents. Implementação focada em roteiros, fallback e logs estruturados para análise. Resultado: redução de tempo médio de atendimento e maior precisão nas respostas.">
+        <img src="IMAGENS/what-is-n8n.webp" class="projetos-imagem" alt="IA de Atendimento" />
+        <h3 class="projeto-nome">IA de Atendimento ao Cliente</h3>
+        <p class="projeto-resumo">Automação conversacional com integração multi-canais.</p>
+      </article>
+
+      <article class="projetos-card" tabindex="0" role="button" aria-pressed="false" data-titulo="Automação TOTVS (Contas a Receber)" data-desc="Automação com Python + Selenium para o Protheus (TOTVS): localizar títulos, alterar campos, validar erros e salvar baixas automaticamente. O script inclui logs e tratamento de exceções para garantir robustez em ambientes produtivos.">
+        <img src="IMAGENS/python.jpg" class="projetos-imagem" alt="Automação TOTVS" />
+        <h3 class="projeto-nome">Automação TOTVS (Contas a Receber)</h3>
+        <p class="projeto-resumo">Script em Python para operar lançamentos e baixas no ERP.</p>
+      </article>
+
+      <article class="projetos-card" tabindex="0" role="button" aria-pressed="false" data-titulo="Dashboard e ETL" data-desc="Pipeline de extração, transformação e carga para consolidar métricas operacionais; construção de dashboard em Power BI para monitoramento e tomada de decisão. Inclui limpeza de dados, rotinas agendadas e KPIs configuráveis.">
+        <img src="IMAGENS/dash.avif" class="projetos-imagem" alt="Dashboard e ETL" />
+        <h3 class="projeto-nome">Dashboard &amp; ETL</h3>
+        <p class="projeto-resumo">ETL + Power BI para métricas operacionais.</p>
+      </article>
+
+    </div>
+
+    <!-- Modal de detalhe do projeto -->
+    <div id="modal-projeto" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <div class="modal-overlay" id="modal-overlay"></div>
+      <div class="modal-conteudo" role="document">
+        <button id="fechar-modal" class="btn-fechar" aria-label="Fechar modal">×</button>
+        <h2 id="modal-titulo"></h2>
+        <p id="modal-descricao"></p>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="contato" class="contato">
+    <h2 class="contatos-titulo">Contato</h2>
+    <form id="formulario" class="formulario-contato" onsubmit="submitForm(event)">
+      <input id="nome" class="campo-form" placeholder="Nome" required />
+      <input id="email" class="campo-form" placeholder="Email" type="email" required />
+      <textarea id="mensagem" class="test-form" placeholder="Digite sua mensagem" required></textarea>
+      <button type="submit" class="btn-submit">Enviar Mensagem</button>
+      <p id="status-msg" class="status-msg" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <footer class="tecnologias">
+    <h2>Tecnologias utilizadas</h2>
+    <div class="tec-caixa">
+      <div class="tec-item"><img src="IMAGENS/vscode-removebg-preview.png" alt="VS Code"/><p>VS Code</p></div>
+      <div class="tec-item"><img src="IMAGENS/HTML.png" alt="HTML"/><p>HTML</p></div>
+      <div class="tec-item"><img src="IMAGENS/CSS-removebg-preview.png" alt="CSS"/><p>CSS</p></div>
+    </div>
+  </footer>
+
+  <script>
+    // Modal logic: abre com click, Enter/Space ou teclado, fecha com X, ESC ou click fora
+    (function(){
+      const cards = document.querySelectorAll('.projetos-card');
+      const modal = document.getElementById('modal-projeto');
+      const overlay = document.getElementById('modal-overlay');
+      const modalTitulo = document.getElementById('modal-titulo');
+      const modalDescricao = document.getElementById('modal-descricao');
+      const fechar = document.getElementById('fechar-modal');
+
+      function openModal(titulo, desc) {
+        modalTitulo.textContent = titulo;
+        modalDescricao.textContent = desc;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        fechar.focus();
+      }
+
+      function closeModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      cards.forEach(card => {
+        const titulo = card.getAttribute('data-titulo');
+        const desc = card.getAttribute('data-desc');
+        card.addEventListener('click', () => openModal(titulo, desc));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(titulo, desc);
+          }
+        });
+      });
+
+      fechar.addEventListener('click', closeModal);
+      overlay.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    })();
+
+    async function submitForm(e){
+      e.preventDefault();
+      const name = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('mensagem').value.trim();
+      const status = document.getElementById('status-msg');
+      status.textContent = 'Enviando...';
+
+      try{
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+        if(res.ok){
+          status.textContent = 'Mensagem enviada com sucesso. Obrigado!';
+          document.getElementById('formulario').reset();
+        } else {
+          status.textContent = 'Erro ao enviar. Tente novamente.';
+        }
+      } catch(err){
+        status.textContent = 'Erro de conexão. Verifique o servidor.';
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
